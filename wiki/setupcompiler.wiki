@@ -9,7 +9,7 @@
 = Setup Gcc =
 
 
-`% bzip2 -dc gcc-core-3.4.2.tar.bz2 | tar xf -
+{{{% bzip2 -dc gcc-core-3.4.2.tar.bz2 | tar xf -
 % cd gcc-3.4.2
 % setenv CPPFLAGS -I/usr/local/include
 % ./configure --target=i386-jos-elf --prefix=/usr/local
@@ -19,10 +19,10 @@ creating Makefile
 % gmake
 Configuring in intl
 ...
-%` 
+%}}}
 
 = Setup binutils =
-`% gzip -dc binutils-2.15.tar.gz | tar xf -
+{{{% gzip -dc binutils-2.15.tar.gz | tar xf -
 % cd binutils-2.15
 % ./configure --target=i386-jos-elf --prefix=/usr/local
 creating cache ./config.cache
@@ -38,4 +38,4 @@ Configuring in libiberty
 configure: creating cache ./config.cache
 ...
 rm -f ld.pod
-%` 
+%}}}
