@@ -28,3 +28,4 @@
   * คำนวณเพื่อให้ได้ค่าสำหรับการแปลงมุมมองเก็บไว้
     
 การติดต่อกล้องผ่าน java media framework (WebCam)
+  * convert image to point x,y
