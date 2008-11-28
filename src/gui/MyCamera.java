@@ -164,7 +164,7 @@ public class MyCamera extends javax.swing.JFrame {
 			if(init == true)
 				{
 //					wiicam.setEnabled(false);
-					jLabel1.setText("Connected to capture device! Ready for calibration.");
+					jLabel1.setText("Connected to capture device! Ready .");
 					setVisible(true);
 				} else {
 					System.exit(0);
