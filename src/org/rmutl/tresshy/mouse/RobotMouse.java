@@ -8,6 +8,7 @@ package org.rmutl.tresshy.mouse;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
+import java.awt.geom.Point2D;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,6 +29,9 @@ public class RobotMouse {
        robot.mouseMove(x, y);
        robot.mousePress(InputEvent.BUTTON1_MASK);
        robot.mouseRelease(InputEvent.BUTTON1_MASK);
+   }
+   public void mouseClick(Point2D p){
+       robot.mouseMove((int)p.getX(),(int)p.getY());
    }
    public void mouseMove(int x,int y){
        robot.mouseMove(x, y);
