@@ -46,7 +46,7 @@ public class WiiMote {
         }
         try {
 //              remote  = WiiRemoteJ.findRemote();
-              remote.addWiiRemoteListener(new WiiDataHandler(remote) {
+                remote.addWiiRemoteListener(new WiiDataHandler(remote) {
             //  remote.se
                 @Override
                 public void battery(WRStatusEvent evt) {
