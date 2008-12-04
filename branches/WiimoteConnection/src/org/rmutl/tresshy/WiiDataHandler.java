@@ -41,5 +41,4 @@ public abstract   class WiiDataHandler extends WiiRemoteAdapter {
         }
 
     }
-
 }
