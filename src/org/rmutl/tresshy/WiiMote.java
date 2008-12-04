@@ -29,7 +29,7 @@ public class WiiMote {
     private boolean calibrat;
     private int i;
     private int j;
-    private PerspectiveTransform perspective;
+    private static PerspectiveTransform perspective;
     private RobotMouse mouse;
     private static final byte[] SENSITIVITY_BLOCK1 = new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, (byte) 0x90, 0x00, 0x41 };
 	private static final byte[] SENSITIVITY_BLOCK2 = new byte[] { 0x40, 0x00 };
@@ -72,7 +72,7 @@ public class WiiMote {
 							remote.requestStatus();
 					} catch (Exception e) {
 						e.printStackTrace();
-					//	WiimoteWhiteboard.getLogger().log(Level.WARNING, "Error on requesting status from Wii Remote", e);
+					
 					}
 					try {
 						Thread.sleep(60 * 1000);
@@ -102,7 +102,7 @@ public class WiiMote {
           if(!calibrat)
           {
             perspective = screen.calculateTransformation();
-            screen.setEnabled(false);
+            screen.setVisible(false);
           }
           i+=2;
           j+=2;
