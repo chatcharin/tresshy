@@ -101,7 +101,7 @@ public class ScreenFrame extends JFrame{
 //		   int y = this.getY(bounds,0.9,0.1) - bounds.y;
 //           add(statusLabel(VISIBLE,1,x,y));
 //        }else if(status == 4){
-//           int x = this.getX(bounds,0.9,0.9) - bounds.x;
+//         int x = this.getX(bounds,0.9,0.9) - bounds.x;
 //		   int y = this.getY(bounds,0.9,0.9) - bounds.y;
 //           add(statusLabel(VISIBLE,1,x,y));
 //        }
@@ -114,10 +114,18 @@ public class ScreenFrame extends JFrame{
     }
     public boolean nextState(){
         status++;
-        return (status <= 4);
+      return (status <= 3);
     }
     public PerspectiveTransform calculateTransformation() {
-        return PerspectiveTransform.getQuadToQuad(d[0], d[1], d[2], d[3], d[4], d[5], d[6], d[7], d[8], d[9], d[10], d[11], d[12], d[13], d[14], d[15]);
+//           d[8] = 80.0;
+//           d[9] = 80.0;
+//           d[10] = 720.0;
+//           d[11] = 80.0;
+//           d[12] = 720.0;
+//           d[13] = 1152.0;
+        for(int i=0;i<16;i++)
+            System.out.println(d[i]);
+        return PerspectiveTransform.getQuadToQuad(d[2], d[3], d[4], d[5], d[6], d[7], d[0], d[1], d[8], d[9], d[10], d[11], d[12], d[13], d[14], d[15]);
 	}
     public int getX(Rectangle bounds,double xMargin,double yMargin) {
 			return bounds.x + (int) Math.round(bounds.width * xMargin);
@@ -143,35 +151,52 @@ public class ScreenFrame extends JFrame{
         if(status == 0){
            int x = this.getX(bounds,0.1,0.9) - bounds.x;
 		   int y = this.getY(bounds,0.1,0.9) - bounds.y;
-		   g.drawImage(CROSS_HAIR, x - CROSS_HAIR.getWidth(null)/2 + 1, y - CROSS_HAIR.getHeight(null)/2 + 1, null);
+               x =  x - CROSS_HAIR.getWidth(null)/2 + 1;
+               y =  y - CROSS_HAIR.getHeight(null)/2 + 1;
+           d[14] =  (double)x;
+           d[15] =  (double)y;
+		   g.drawImage(CROSS_HAIR, x, y , null);
         }else if(status == 1){
            int x = this.getX(bounds,0.1,0.9) - bounds.x;
 		   int y = this.getY(bounds,0.1,0.9) - bounds.y;
-           setPoint(8,9,x,y);
+//           setPoint(8,9,x,y);
 		   g.drawImage(VISIBLE, x - VISIBLE.getWidth(null)/2 + 1, y - VISIBLE.getHeight(null)/2 + 1, null);
             x =this.getX(bounds,0.1,0.1) - bounds.x;
 		    y =this.getY(bounds,0.1,0.1) - bounds.y;
-		   g.drawImage(CROSS_HAIR, x - CROSS_HAIR.getWidth(null)/2 + 1, y - CROSS_HAIR.getHeight(null)/2 + 1, null);
+		    x =  x - CROSS_HAIR.getWidth(null)/2 + 1;
+            y =  y - CROSS_HAIR.getHeight(null)/2 + 1;
+           d[8] =  (double)x;
+           d[9] =  (double)y;
+		   g.drawImage(CROSS_HAIR, x, y , null);
         }else if(status == 2){
            int x =this.getX(bounds,0.1,0.1) - bounds.x;
 		   int y =this.getY(bounds,0.1,0.1) - bounds.y;
-            setPoint(10,11,x,y);
+
+//            setPoint(10,11,x,y);
            g.drawImage(VISIBLE, x - VISIBLE.getWidth(null)/2 + 1, y - VISIBLE.getHeight(null)/2 + 1, null);
             x = this.getX(bounds,0.9,0.1) - bounds.x;
 		    y = this.getY(bounds,0.9,0.1) - bounds.y;
-		   g.drawImage(CROSS_HAIR, x - CROSS_HAIR.getWidth(null)/2 + 1, y - CROSS_HAIR.getHeight(null)/2 + 1, null);
+		    x =  x - CROSS_HAIR.getWidth(null)/2 + 1;
+            y =  y - CROSS_HAIR.getHeight(null)/2 + 1;
+           d[10] =  (double)x;
+           d[11] =  (double)y;
+		   g.drawImage(CROSS_HAIR, x, y , null);
         }else if(status == 3){
            int x = this.getX(bounds,0.9,0.1) - bounds.x;
 		   int y = this.getY(bounds,0.9,0.1) - bounds.y;
-            setPoint(12,13,x,y);
+//            setPoint(12,13,x,y);
            g.drawImage(VISIBLE, x - VISIBLE.getWidth(null)/2 + 1, y - VISIBLE.getHeight(null)/2 + 1, null);
             x = this.getX(bounds,0.9,0.9) - bounds.x;
 		    y = this.getY(bounds,0.9,0.9) - bounds.y;
-		   g.drawImage(CROSS_HAIR, x - CROSS_HAIR.getWidth(null)/2 + 1, y - CROSS_HAIR.getHeight(null)/2 + 1, null);
+		    x =  x - CROSS_HAIR.getWidth(null)/2 + 1;
+            y =  y - CROSS_HAIR.getHeight(null)/2 + 1;
+           d[12] =  (double)x;
+           d[13] =  (double)y;
+		   g.drawImage(CROSS_HAIR, x, y , null);
         }else if(status == 4){
            int x = this.getX(bounds,0.9,0.9) - bounds.x;
 		   int y = this.getY(bounds,0.9,0.9) - bounds.y;
-            setPoint(14,15,x,y);
+//           setPoint(12,13,x,y);
            g.drawImage(VISIBLE, x - VISIBLE.getWidth(null)/2 + 1, y - VISIBLE.getHeight(null)/2 + 1, null);
         }
 	}
