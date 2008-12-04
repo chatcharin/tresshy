@@ -61,7 +61,9 @@ public class WiiMote {
                  System.out.println("\n X:"+x+"\n Y:"+y+" \nSize:"+size);
                 }
             });
-            remote.setIRSensorEnabled(true, WRIREvent.BASIC, new IRSensitivitySettings(SENSITIVITY_BLOCK1, SENSITIVITY_BLOCK2));
+            //remote.setIRSensorEnabled(true, WRIREvent.BASIC, new IRSensitivitySettings(SENSITIVITY_BLOCK1, SENSITIVITY_BLOCK2));
+            remote.setIRSensorEnabled(true, WRIREvent.BASIC);
+
             remote.setLEDIlluminated(0, true);
             new Thread(new Runnable() {
 			public void run() {
