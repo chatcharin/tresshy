@@ -35,3 +35,15 @@
     
 การติดต่อกล้องผ่าน java media framework (WebCam)
   * convert image to point x,y
+  * Smooth of point
+
+=Drawing Application=
+  * new open save
+  * Folder index.html Link Image
+  * Image page number 1,2,3 
+  * jpeg file format
+  * next and back
+  * Undo and Redo
+  * Color red black ,,
+  * 1x1 - 50x50 pixel of Pen
+  * Eraser
