@@ -59,13 +59,14 @@ public class WhiteBoard {
         calibrat = true;
         sleep = true;
         mouse = new RobotMouse();
-        try {
+    }
+    public void startCalibration(){
+         try {
             screen = new ScreenFrame();
         } catch (MalformedURLException ex) {
             Logger.getLogger(WiiMote.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
     public void  calibration(double x,double y,double size){
         if(index < 30 && (index != 3)){
             index++;
@@ -99,32 +100,48 @@ public class WhiteBoard {
 
     public void run(){
         switch(select){
-              case  0:wiimote = new WiiMote(this) ;
-              case  1:webcam  = new WebCam(this);
-              case  2:wiimote = new WiiMote(this);
-              default:wiimote = new WiiMote(this);
+              case  0:wiimote = new WiiMote(this) ;break;
+              case  1:webcam  = new WebCam(this);break;
+              case  2:wiimote = new WiiMote(this);break;
+              default:wiimote = new WiiMote(this);break;
         }
     }
 
     public void disconnect(){
          switch(select){
-              case  0:wiimote.disConnection() ;
-              case  1:webcam.disConnection();
-              case  2:wiimote.disConnection();
-              default:wiimote.disConnection();
+              case  0:wiimote.disConnection();break;
+              case  1:webcam.disConnection();break;
+              case  2:wiimote.disConnection();break;
+              default:wiimote.disConnection();break;
         }
     }
 
     public void connect(){
         switch(select){
-              case  0:wiimote.connection() ;
-              case  1:webcam.connection();
-              case  2:wiimote.connection();
-              default:wiimote.connection();
+              case  0:wiimote.connection();break;
+              case  1:webcam.connection();break;
+              case  2:wiimote.connection();break;
+              default:wiimote.connection();break;
         }
     }
 
     public String getScreenSize() {
         return screensize;
+    }
+   public void calibration(){
+       switch(select){
+              case  0:wiimote.calibration();break;
+              case  1:webcam.calibration();break;
+              case  2:wiimote.calibration();break;
+              default:wiimote.calibration();break;
+        }
+   }
+   public void showMonitor() {
+           switch(select){
+              case  0:wiimote.showMonitor();break;
+              case  1:webcam.showMonitor();break;
+              case  2:wiimote.showMonitor();break;
+              default:wiimote.showMonitor();break;
+        }
     }
 }
