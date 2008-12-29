@@ -34,13 +34,4 @@ public class IRDot extends Point2D.Double {
 	public int getId() {
 		return id;
 	}
-
-//	public static IRDot[] getIRDots(IRLight[] lights) {
-//		IRDot[] dots = new IRDot[lights.length];
-//		for (int i = 0; i < lights.length; i++) {
-//			dots[i] = lights[i] == null ? null : new IRDot(i, lights[i]);
-//		}
-//		return dots;
-//	}
-
 }
