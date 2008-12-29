@@ -39,7 +39,7 @@ public class ScreenFrame extends JFrame{
 	// Class constructor
 	public ScreenFrame() throws MalformedURLException {
           d = new Double[16];
-		// Exiting program on window close
+// Exiting program on window close
 //		addWindowListener(new WindowAdapter() {
 //            @Override
 //            public void windowClosing(WindowEvent e) {
@@ -47,8 +47,8 @@ public class ScreenFrame extends JFrame{
 //            }
 //        });
 //
-//		// Exitig program on mouse click
-//		addMouseListener(new MouseListener() {
+
+//  		addMouseListener(new MouseListener() {
 //			public void mouseClicked(MouseEvent e) {
 //              if(status >= 4)
 //                  System.exit(0);
@@ -115,6 +115,9 @@ public class ScreenFrame extends JFrame{
     public boolean nextState(){
         status++;
       return (status <= 3);
+    }
+    public void clean(){
+        this.setUndecorated(true);
     }
     public PerspectiveTransform calculateTransformation() {
 //           d[8] = 80.0;
