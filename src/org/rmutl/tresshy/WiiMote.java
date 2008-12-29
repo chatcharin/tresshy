@@ -6,14 +6,13 @@
 package org.rmutl.tresshy;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.media.jai.PerspectiveTransform;
 import org.rmutl.tresshy.calibration.ScreenFrame;
+import org.rmutl.tresshy.monitor.WiiMonitor;
 import org.rmutl.tresshy.mouse.RobotMouse;
 import wiiremotej.IRLight;
-import wiiremotej.IRSensitivitySettings;
 import wiiremotej.WiiRemote;
 import wiiremotej.WiiRemoteJ;
 import wiiremotej.event.WRIREvent;
@@ -24,30 +23,43 @@ import wiiremotej.event.WRStatusEvent;
  * @author catchajaa
  */
 public class WiiMote {
+    private WhiteBoard whiteboard;
     private WiiRemote remote;
     private ScreenFrame screen;
-    private boolean calibrat;
+    public static boolean calibrat;
     private int i;
     private int j;
     private static PerspectiveTransform perspective;
     private RobotMouse mouse;
     private static final byte[] SENSITIVITY_BLOCK1 = new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, (byte) 0x90, 0x00, 0x41 };
 	private static final byte[] SENSITIVITY_BLOCK2 = new byte[] { 0x40, 0x00 };
-    public WiiMote(final WiiRemote remote){
-        i = 0;
-        j = 1;
-        calibrat = true;
-        sleep = true;
-        mouse = new RobotMouse();
+    public WiiMote(WhiteBoard whitboard){
+        this.whiteboard = whitboard;
+    }
+    public boolean sleep;
+    public int index;
+    public void disConnection(){
+        remote.disconnect();
+    }
+    public boolean isConnect(){
+       return remote.isConnected();
+    }
+    public void connection(){
         try {
-            screen = new ScreenFrame();
-        } catch (MalformedURLException ex) {
+            remote = WiiRemoteJ.findRemote();
+        } catch (IllegalStateException ex) {
+            Logger.getLogger(WiiMote.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(WiiMote.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(WiiMote.class.getName()).log(Level.SEVERE, null, ex);
         }
-        try {
-//              remote  = WiiRemoteJ.findRemote();
+    }
+    public void calibration(){
+        whiteboard.startCalibration();
+       try {
                 remote.addWiiRemoteListener(new WiiDataHandler(remote) {
-            //  remote.se
+                //  remote.se
                 @Override
                 public void battery(WRStatusEvent evt) {
                     System.out.println("\n Status:"+ evt.getBatteryLevel());
@@ -56,14 +68,13 @@ public class WiiMote {
                 @Override
                 public void wiimote(IRLight linght, double x, double y, double size) {
                     if(calibrat)
-                     WiiCalibration(linght,x,y,size);
-                     Wiiaction(linght,x,y,size);
-                 System.out.println("\n X:"+x+"\n Y:"+y+" \nSize:"+size);
+                     whiteboard.calibration(x,y,size);
+                     whiteboard.action(x,y,size);
+                     System.out.println("\n X:"+x+"\n Y:"+y+" \nSize:"+size);
                 }
             });
             //remote.setIRSensorEnabled(true, WRIREvent.BASIC, new IRSensitivitySettings(SENSITIVITY_BLOCK1, SENSITIVITY_BLOCK2));
             remote.setIRSensorEnabled(true, WRIREvent.BASIC);
-
             remote.setLEDIlluminated(0, true);
             new Thread(new Runnable() {
 			public void run() {
@@ -74,7 +85,6 @@ public class WiiMote {
 							remote.requestStatus();
 					} catch (Exception e) {
 						e.printStackTrace();
-					
 					}
 					try {
 						Thread.sleep(60 * 1000);
@@ -92,48 +102,9 @@ public class WiiMote {
             Logger.getLogger(WiiDataHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    boolean sleep;
-    int index;
-    public void  WiiCalibration(IRLight light,double x,double y,double size){
-        if(index < 30 && (index != 3)){
-            index++;
-        }else if(calibrat && (index==3)){
-          screen.setPoint(i,j,x,y);
-          calibrat = screen.nextState();
-          screen.refresh();
-          if(!calibrat)
-          {
-            perspective = screen.calculateTransformation();
-            screen.setVisible(false);
-          }
-          i+=2;
-          j+=2;
-//       try {
-//			Thread.sleep(700);
-//		  } catch (InterruptedException e) {
-//		  e.printStackTrace();
-//		  }
-          index++;
-        }else if(index > 15){
-            index =0;
-        }
-        // transform
-        // Mouse Robot
+
+   public void showMonitor() {
+                new WiiMonitor(remote).setVisible(true);
     }
 
-    public void  Wiiaction(IRLight light,double x,double y,double size){
-        if(!calibrat)
-        mouse.mouseClick(perspective.transform(new IRDot(1,light),null));
-    }
-   public static void main(String args[]){
-        try {
-            new WiiMote(WiiRemoteJ.findRemote());
-        } catch (IllegalStateException ex) {
-            Logger.getLogger(WiiMote.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(WiiMote.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(WiiMote.class.getName()).log(Level.SEVERE, null, ex);
-        }
-   }
 }
