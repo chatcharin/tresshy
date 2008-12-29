@@ -28,10 +28,10 @@ import org.rmutl.tresshy.WiiDataHandler;
 public class WiiMonitor extends javax.swing.JFrame {
 
     /** Creates new form WiiMonitor */
-    public WiiMonitor() {
+    public WiiMonitor( final WiiRemote remote ) {
         initComponents();
         try {
-            final WiiRemote remote = WiiRemoteJ.findRemote();
+           
             remote.addWiiRemoteListener(new WiiDataHandler(remote) {
 
                 @Override
@@ -65,8 +65,6 @@ public class WiiMonitor extends javax.swing.JFrame {
 				}
 			}
 		}).start();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(WiiDataHandler.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(WiiDataHandler.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalArgumentException ex) {
@@ -87,7 +85,11 @@ public class WiiMonitor extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                MonitorClose(evt);
+            }
+        });
 
         jLabel1.setText("1");
 
@@ -112,17 +114,14 @@ public class WiiMonitor extends javax.swing.JFrame {
         setBounds((screenSize.width-740)/2, (screenSize.height-420)/2, 740, 420);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void MonitorClose(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_MonitorClose
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_MonitorClose
+
     /**
     * @param args the command line arguments
     */
-    public static void main(String args[]) {
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new WiiMonitor().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
