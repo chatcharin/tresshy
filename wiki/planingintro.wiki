@@ -31,7 +31,9 @@
   * เมาส์คลิก R L
   * เมาส์ลาก
   * ปล่อยเมาส์
-  
+  * configuretion x,y
+  * sensitivity setting
+  * mouse config 
     
 การติดต่อกล้องผ่าน java media framework (WebCam)
   * convert image to point x,y
