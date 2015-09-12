@@ -1,0 +1,41 @@
+#GCC Compiler cross-compiler in Unix or Linux.
+
+# Download Compiler #
+
+  * [ftp://ftp.gnu.org/gnu/binutils/binutils-2.15.tar.gz](ftp://ftp.gnu.org/gnu/binutils/binutils-2.15.tar.gz)
+  * [ftp://ftp.gnu.org/gnu/gcc/gcc-3.4.2/gcc-core-3.4.2.tar.bz2](ftp://ftp.gnu.org/gnu/gcc/gcc-3.4.2/gcc-core-3.4.2.tar.bz2)
+
+
+# Setup Gcc #
+
+
+% bzip2 -dc gcc-core-3.4.2.tar.bz2 | tar xf -
+% cd gcc-3.4.2
+% setenv CPPFLAGS -I/usr/local/include
+% ./configure --target=i386-jos-elf --prefix=/usr/local
+creating cache ./config.cache
+...
+creating Makefile
+% gmake
+Configuring in intl
+...
+%
+
+# Setup binutils #
+% gzip -dc binutils-2.15.tar.gz | tar xf -
+% cd binutils-2.15
+% ./configure --target=i386-jos-elf --prefix=/usr/local
+creating cache ./config.cache
+checking host system type... i386-unknown-openbsd3.5
+checking target system type... i386-jos-elf
+checking build system type... i386-unknown-openbsd3.5
+...
+updating cache ./config.cache
+creating ./config.status
+creating Makefile
+% make
+Configuring in libiberty
+configure: creating cache ./config.cache
+...
+rm -f ld.pod
+%
